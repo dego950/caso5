@@ -1,0 +1,172 @@
+﻿<!DOCTYPE html>
+<html lang="en" xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Autogestión Covid-19 - Telemonitoreo</title>	
+	<link rel="stylesheet" href="/Style%20Library/plugins/fontawesome-5pro/css/all.min.css">
+	<link rel="stylesheet" href="/Style%20Library/plugins/fontawesome-5pro/css/light.min.css">
+	<link rel="stylesheet" href="/formularios/covid-19/lab/automonitoreo/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/Style%20Library/css/bootstrap-select.min.css">
+	<link rel="stylesheet" href="/Style%20Library/css/bootstrap-datetimepicker.min.css">
+    <link rel="stylesheet" href="/formularios/covid-19/lab/automonitoreo/css/styles.css?2">
+
+</head>
+<body>
+    <div id="sura-covid" class="sura-covid">
+			<header class="header-ppal">
+				<div class="logo">
+					<img src="images/logo.png" alt="Logo Sura">
+				</div>
+				<span>Autogestión Telemonitoreo COVID-19</span>
+			</header>
+			<div class="patient-info" v-if="Object.keys(user).length == 0">
+				<div class="name-content">{{mensaje_1}}</div>
+			</div>
+			<!-- Información paciente -->
+			<div class="patient-info" v-if="Object.keys(user).length !== 0">
+				<div class="name-content">Hola <span class='bold'>{{user.nombre}}</span>, <br /><br />
+					{{contenido.header.text}}</div>
+				<!-- <div class="name-content" v-if="contenido.header.title"><span class='bold'>{{contenido.header.title}}</span></div>
+				<div class="name-content" v-if="contenido.header.text">{{contenido.header.text}}</span></div> -->
+				<ul class="list-default list-info-patient">
+					<li class="">
+						<em class="fal fa-notes-medical"></em>
+						<div class="info">
+							Direccionamiento
+							<span class="bold">{{user.version}}</span>
+						</div>
+					</li>
+					<li class="">
+						<em class="fal fa-sort-amount-up-alt"></em>
+						<div class="info">
+							Canal
+							<span class="bold">{{user.canal}}</span>
+						</div>
+					</li>
+				</ul>
+			</div>
+			<!-- Formulario -->
+			<div class="form-content" v-if="Object.keys(user).length !== 0">
+				<form action="">
+					<div class="tab-content">
+						<div role="tabpanel" class="tab-pane active" id="questions">
+							<div id="note" class="note" v-if="contenido.content1">
+								<em class="fal fa-info-circle"></em>
+								{{contenido.content1}}
+							</div>
+							<div id="note" class="note" v-if="contenido.content2">
+								<em class="fal fa-info-circle"></em>
+								{{contenido.content2}}
+							</div>
+							<div class="text-message" v-if="mensaje_2">
+								<div class="items">
+									<label>{{mensaje_2}}</label>
+								</div>
+							</div>
+							<div id="preguntas" class="leves-content">
+							<div v-for="item in formulario.values" :key="item.id" class="form-group required" v-if="formulario.title == 'vitales' && item.id != 0">
+									<label>{{item.title}}</label>
+									<input class="form-control" v-if="item.type=='number'" v-model="item.respuesta" :id="item.id" :type="item.type" :placeholder="item.placeholder"
+										:min="item.min" :max="item.max" :step="item.step" required>
+									<input class="form-control" v-if="item.type=='date'" v-model="item.respuesta" :id="item.id" :type="item.type" :placeholder="item.placeholder"
+										:max="item.max" required>
+									<input class="form-control" v-if="item.type=='time'" v-model="item.respuesta" :id="item.id" 
+										:type="item.type" :placeholder="item.placeholder" required>
+							</div>
+							<div v-for="item in formulario.values" :key="item.id" class="form-group required" v-if="formulario.title != 'vitales' && item.id != 0">
+									<label v-if="item.type != 'message'">{{item.title}}</label>
+									<div class="toggle-switch" v-if="item.type != 'message'">
+										<input v-model="item.respuesta" type="checkbox">
+										<div class="slider"></div>
+									</div>
+								</div>
+							</div>
+							<div id="note" class="note" v-if="contenido.footer">
+								<em class="fal fa-info-circle"></em>
+								{{contenido.footer}}
+							</div>
+							<div class="btn-group" role="group">
+								<a class="btn c-1" v-if="contenido.header.title != 'texto-sms'" @click="validarData" aria-controls="questions" role="tab" data-toggle="tab">
+									<em class="fal fa-arrow-right"></em>
+									Enviar
+								</a>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+
+			<div class="modal fade" id="modalInfo" tabindex="-1" role="dialog" aria-labelledby="modalInfoLabel" v-if="Object.keys(user).length !== 0">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+								aria-hidden="true">&times;</span></button>
+						<h4 class="modal-title" id="modalInfoLabel">Validar información</h4>
+					</div>
+				<div class="modal-body">
+						<div class="content-info">
+						<div v-for="item in formulario.values" :key="item.id" class="form-group required" v-if="formulario.title == 'vitales'">
+								<label>{{item.title}}</label>
+								<input class="form-control" v-model="item.respuesta" :id="item.id" :type="item.type" :placeholder="item.placeholder" readonly>
+							</div>
+							<div v-for="item in formulario.values" :key="item.id" class="form-group unactive" v-if="formulario.title != 'vitales'">
+								<label>{{item.title}}</label>
+								<div class="toggle-switch">
+									<input v-model="item.respuesta" type="checkbox">
+									<div class="slider"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" v-on:click="sendData()" class="btn c-1"><em class="fal fa-save"></em>Guardar</button>
+						<button type="button" class="btn c-1" data-dismiss="modal">Cerrar</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		</div>
+		
+		<div class="modal fade" id="modalNotifi" tabindex="-1" role="dialog" data-backdrop="static" aria-labelledby="modalInfoLabel" v-if="Object.keys(user).length !== 0">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h4 class="modal-title" id="modalInfoLabel">Información <span class="bold">guardada</span></h4>
+						</div>
+						<div class="modal-body">
+							<div class="content-info">
+								<div class="detail">
+									<div class="icon">
+										<em class="fal fa-paper-plane"></em>
+									</div>
+									<div class="info">
+										La información ha sido<span class="bold">almacenada correctamente.</span>
+										Ya puedes <span class="bold"> cerrar esta página</span> 
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+	<!-- Jquery -->
+	<script src="/Style%20Library/js/jquery.min.js"></script>
+	<!-- Bootstrap -->
+	<script src="/formularios/covid-19/lab/automonitoreo/js/bootstrap.min.js"></script>
+	<!-- Bootstrap datetimepicker -->	
+	<script src="/Style%20Library/js/moment.min.js"></script>
+	<script src="/Style%20Library/js/bootstrap-datetimepicker.min.js"></script>
+    <!-- Bootstrap select -->
+    <script src="/Style%20Library/js/bootstrap-select.min.js"></script>
+    <!-- develop -->
+    <script src="/Style%20Library/js/vue.min.js"></script>
+	<script src="/formularios/covid-19/lab/automonitoreo/js/urls.js?1"></script>
+	<script src="/formularios/covid-19/lab/automonitoreo/js/formularios.js?1"></script>
+    <script src="/formularios/covid-19/lab/automonitoreo/js/automonitoreoLab.js?5"></script>
+</body>
+
+</html>

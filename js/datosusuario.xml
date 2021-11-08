@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:sur="http://suramericana.eps.pos.afiliados">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <sur:consultarAfiliadoExtendido>
+         <solicitudAfiliadoConsultaExtendido>
+            <!--Optional:-->
+            <tipoIdentificacion>1</tipoIdentificacion>
+            <!--Optional:-->
+            <numeroIdentificacion>22515565</numeroIdentificacion>
+            <!--Optional:-->
+            <aplicacionOrigen>IPSA</aplicacionOrigen>
+         </solicitudAfiliadoConsultaExtendido>
+      </sur:consultarAfiliadoExtendido>
+   </soapenv:Body>
+</soapenv:Envelope>

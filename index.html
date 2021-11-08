@@ -1,0 +1,1388 @@
+﻿<!DOCTYPE html>
+<html lang="en" xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Autogestión Covid-19 - caso 5</title>	
+	<link rel="stylesheet" href="/Style%20Library/plugins/fontawesome-5pro/css/all.min.css">
+	<link rel="stylesheet" href="/Style%20Library/plugins/fontawesome-5pro/css/light.min.css">
+	<link rel="stylesheet" href="/formularios/covid-19/lab/caso5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/Style%20Library/css/bootstrap-select.min.css">
+	<link rel="stylesheet" href="/Style%20Library/css/bootstrap-datetimepicker.min.css">
+    <link rel="stylesheet" href="/formularios/covid-19/lab/caso5/css/styles.css">
+
+</head>
+
+<body>
+    <div id="sura-covid" class="sura-covid">
+		<header class="header-ppal">
+			<div class="logo">
+				<img src="images/logo.png" alt="Logo Sura">
+			</div>
+			<span>Autogestión Telemonitoreo COVID-19 caso 5</span>
+		</header>
+		<div class="patient-info" v-if="Object.keys(user).length == 0">
+			<div class="name-content">{{mensaje_1}}</div>
+		</div>
+		<!-- Información paciente POS -->
+		<div class="patient-info" v-if="Object.keys(user).length !== 0 && telemonitoreo.verificar_autogestion.active == false && telemonitoreo.tipo_usuario == 'POS'">
+			<div class="name-content">Hola <span class='bold'>{{user.nombre}}</span>,{{mensaje_5}}</div>
+			<div id="note" class="note" v-if="telemonitoreo.tipo_usuario =='POS'">
+				<em class="fal fa-info-circle"></em>
+				¡Importante! El enlace para continuar con tu atención solo estará activo por 12 horas. Si no ingresas durante este periodo de tiempo, deberás contactarnos nuevamente por este canal.
+			</div>
+			<div class="text-message">
+				<div class="items">
+					<label>Datos personales</label>
+				</div>
+			</div>
+			<ul class="list-default list-info-patient">
+				<li class="">
+					<em class="fal fa-user"></em>
+					<div class="info">
+						{{telemonitoreo.datosPersonales.Envelope.Body.consultarAfiliadoExtendidoResponse.afiliadoConsultaExtendido.primerNombre}}
+						{{telemonitoreo.datosPersonales.Envelope.Body.consultarAfiliadoExtendidoResponse.afiliadoConsultaExtendido.segundoNombre}}
+						{{telemonitoreo.datosPersonales.Envelope.Body.consultarAfiliadoExtendidoResponse.afiliadoConsultaExtendido.primerApellido}}
+						{{telemonitoreo.datosPersonales.Envelope.Body.consultarAfiliadoExtendidoResponse.afiliadoConsultaExtendido.segundoApellido}} 
+						<span class="bold"> {{user.tipoId}} : {{user.id}}</span>
+					</div>
+				</li>
+				<li class="">
+					<em class="fal fa-user-tag"></em>
+					<div class="info">
+						Fecha de nacimiento
+						<span class="bold">{{telemonitoreo.fecha_nacimiento}}</span>
+						<span class="bold">Edad: {{telemonitoreo.edad}} años</span>
+					</div>
+				</li>
+				<li class="">
+					<em class="fal fa-phone-square-alt"></em>
+					<div class="info">
+						Información Telefonica
+						<span class="bold">Telefono: {{telemonitoreo.telefono1}}</span>
+						<span class="bold">Celular: {{telemonitoreo.telefono2}}</span>
+
+					</div>
+				</li>
+				<li class="">
+					<em class="fal fa-restroom"></em>
+					<div class="info">
+						Sexo
+						<span class="bold">{{telemonitoreo.datosPersonales.Envelope.Body.consultarAfiliadoExtendidoResponse.afiliadoConsultaExtendido.sexo}}</span>
+					</div>
+				</li>
+			</ul>
+		</div>
+		<!-- Información paciente POLIZA -->
+		<div class="patient-info" v-if="Object.keys(user).length !== 0 && telemonitoreo.verificar_autogestion.active == false && telemonitoreo.tipo_usuario == 'POLIZA'">
+			<div class="name-content">Hola <span class='bold'>{{user.nombre}}</span>,{{mensaje_5}}</div>
+			<div id="note" class="note" v-if="telemonitoreo.tipo_usuario =='POLIZA'">
+				<em class="fal fa-info-circle"></em>
+				¡Importante! El enlace para continuar con tu atención solo estará activo por 12 horas. Si no ingresas durante este periodo de tiempo, deberás contactarnos desde tu celular a través de #888 o llamando al 6044378888.
+			</div>
+			<div class="text-message">
+				<div class="items">
+					<label>Datos personales</label>
+				</div>
+			</div>
+			<ul class="list-default list-info-patient">
+				<li class="">
+					<em class="fal fa-user"></em>
+					<div class="info">
+						{{telemonitoreo.datosPersonalesPoliza.informacionBeneficiario.dsNombre1}}
+						{{telemonitoreo.datosPersonalesPoliza.informacionBeneficiario.dsNombre2}}
+						{{telemonitoreo.datosPersonalesPoliza.informacionBeneficiario.dsApellido1}}
+						{{telemonitoreo.datosPersonalesPoliza.informacionBeneficiario.dsApellido2}}
+						<span class="bold"> {{user.tipoId}} : {{user.id}}</span>
+					</div>
+				</li>
+				<li class="">
+					<em class="fal fa-user-tag"></em>
+					<div class="info">
+						Fecha de nacimiento
+						<span class="bold">{{telemonitoreo.datos_poliza.fecha_nacimiento}}</span>
+						<span class="bold">Edad: {{telemonitoreo.datos_poliza.edad}} años</span>
+					</div>
+				</li>
+				<li class="">
+					<em class="fal fa-phone-square-alt"></em>
+					<div class="info">
+						Información Telefonica
+						<span class="bold">Telefono: {{telemonitoreo.datos_poliza.telefono}}</span>
+						<span class="bold">Celular: {{telemonitoreo.datos_poliza.celular}}</span>
+
+					</div>
+				</li>
+				<li class="">
+					<em class="fal fa-restroom"></em>
+					<div class="info">
+						Sexo
+						<span class="bold">{{telemonitoreo.datosPersonalesPoliza.informacionBeneficiario.dsSexo}}</span>
+					</div>
+				</li>
+			</ul>
+		</div>
+		<!-- boton de editar indormacion POS -->
+		<div class="btn-group btncenter" role="group" v-if="Object.keys(user).length !== 0 && telemonitoreo.verificar_autogestion.active == false && telemonitoreo.tipo_usuario == 'POS' ">
+			<a class="btn c-1" @click="editarData()" aria-controls="questions" role="tab" data-toggle="tab">
+				<em class="fal fa-arrow-right"></em>
+				Editar
+			</a>
+		</div>
+		<!-- boton de editar indormacion POLIZA -->
+		<div class="btn-group btncenter" role="group" v-if="Object.keys(user).length !== 0 && telemonitoreo.verificar_autogestion.active == false && telemonitoreo.tipo_usuario == 'POLIZA'">
+			<a class="btn c-1" @click="editarData()" aria-controls="questions" role="tab" data-toggle="tab">
+				<em class="fal fa-arrow-right"></em>
+				Editar
+			</a>
+		</div>
+		<br>
+		<!-- Informacion de localización POS -->
+		<div class="patient-info" v-if="Object.keys(user).length !== 0 && telemonitoreo.verificar_autogestion.active == false && telemonitoreo.tipo_usuario == 'POS'">
+			<div class="text-message">
+				<div class="items">
+					<label>Información Adicional</label>
+				</div>
+			</div>
+			<div class="content-info">
+				<ul class="list-default">
+				<div class="row">
+					<div class="column">
+						<p>Direccion</p>
+					</div>
+					<div class="column">
+						<p>
+							<span class="bold">{{telemonitoreo.datosPersonales.Envelope.Body.consultarAfiliadoExtendidoResponse.afiliadoConsultaExtendido.ubicacion.direccion}}</span> 
+						</p>
+					</div>
+				</div><br>
+				<div class="row">
+					<div class="column">
+						<p>Departamento</p>
+					</div>
+					<div class="column">
+						<p>
+							<span class="bold">Antioquia</span> 
+						</p>
+					</div>
+				</div><br>
+				<div class="row">
+					<div class="column">
+						<p>Municipio</p>
+					</div>
+					<div class="column">
+						<p>
+							<span class="bold">Medellin</span>
+						</p>
+					</div>
+				</div>
+				<br>
+				<div class="row">
+					<div class="column">
+						<p>Nacionalidad</p>
+					</div>
+					<div class="column">
+						<p>
+							<span  class="bold">Colombia</span>
+						</p>
+					</div>
+				</div>
+				<br>
+				<div class="row">
+					<div class="column">
+						<p>País de ocurrencia del caso</p>
+					</div>
+					<div class="column">
+						<p>
+							<span  class="bold">Colombia</span>
+						</p>
+					</div>
+				</div>
+				<br>
+				<div class="row" v-if="telemonitoreo.pos_activo == true">
+					<div class="column">
+						<p>Administradora de Planes de beneficios</p>
+					</div>
+					<div class="column">
+						<p>
+							<span  class="bold">{{eps.titulo}}</span>
+						</p>
+					</div>
+				</div>
+				<div class="row" v-if="telemonitoreo.pos_activo == false">
+					<div class="column">
+						<p>Administradora de Planes de beneficios</p>
+					</div>
+					<div class="column">
+						<select height="10px"  width="50px" name="select" v-model="telemonitoreo.eps.codigo">
+							<option v-for=" item in telemonitoreo.maestras[3].values" :value="item.name" selected>{{item.name}}</option>					
+						</select>
+					</div>
+				</div>
+				<br>
+				<div class="row">
+					<div class="column">
+						<p>Fecha de inicio de síntomas</p>
+					</div>
+					<div class="column">
+						<p>
+							<span  class="bold">14/07/2021</span>
+						</p>
+					</div>
+				</div>
+				<br>
+				<div class="row">
+					<div class="column">
+						<p>Fecha contacto estrecho no protegido</p>
+					</div>
+					<div class="column">
+						<p>
+							<span  class="bold">20/10/2021</span>
+						</p>
+					</div>
+				</div>
+			</ul>
+			</div>
+		</div>
+		<!-- Informacion de localización POLIZA -->
+		<div class="patient-info" v-if="Object.keys(user).length !== 0 && telemonitoreo.verificar_autogestion.active == false && telemonitoreo.tipo_usuario == 'POLIZA'">
+			<div class="text-message">
+				<div class="items">
+					<label>Información Adicional</label>
+				</div>
+			</div>
+			<div class="content-info">
+				<ul class="list-default">
+				<div class="row">
+					<div class="column">
+						<p>Direccion</p>
+					</div>
+					<div class="column">
+						<p>
+							<span class="bold">{{telemonitoreo.datos_poliza.direccion}}</span> 
+						</p>
+					</div>
+				</div><br>
+				<div class="row">
+					<div class="column">
+						<p>Departamento Municipio</p>
+					</div>
+					<div class="column">
+						<div class="info" >
+							<select height="10px"  style =width:100% name="select" v-model="telemonitoreo.datos_poliza.departamento_municipio">
+								<option v-for=" item in telemonitoreo.maestras[2].values" :value="item.name" selected>{{item.name}}</option>					
+							</select>
+						</div>
+					</div>
+				</div><br>
+				
+				<br>
+				<div class="row">
+					<div class="column">
+						<p>Nacionalidad</p>
+					</div>
+					<div class="column">
+						<div class="info" >
+							<select height="10px"  style =width:100% name="select" v-model="telemonitoreo.datos_poliza.nacionalidad">
+								<option v-for=" item in telemonitoreo.maestras[4].values" :value="item.name" selected>{{item.name}}</option>					
+							</select>
+						</div>
+					</div>
+				</div>
+				<br>
+				<div class="row">
+					<div class="column">
+						<p>País de ocurrencia del caso</p>
+					</div>
+					<div class="column">
+						<p>
+							<span  class="bold">Colombia</span>
+						</p>
+					</div>
+				</div>
+				<br>
+				<div class="row">
+					<div class="column">
+						<p>Administradora de Planes de beneficios</p>
+					</div>
+					<div class="column">
+						<div class="info" >
+							<select height="10px"  style =width:100% name="select" v-model="telemonitoreo.datos_poliza.eps">
+								<option v-for=" item in telemonitoreo.maestras[3].values" :value="item.name" selected>{{item.name}}</option>					
+							</select>
+						</div>
+					</div>
+				</div>
+				<br>
+				<div class="row">
+					<div class="column">
+						<p>Fecha de inicio de síntomas</p>
+					</div>
+					<div class="column">
+						<p>
+							<span  class="bold">14/07/2021</span>
+						</p>
+					</div>
+				</div>
+				<br>
+				<div class="row">
+					<div class="column">
+						<p>Fecha contacto estrecho no protegido</p>
+					</div>
+					<div class="column">
+						<p>
+							<span  class="bold">20/10/2021</span>
+						</p>
+					</div>
+				</div>
+			</ul>
+			</div>
+		</div>
+		<!-- Informacion adicional POS -->
+		<div class="patient-info" v-if="Object.keys(user).length !== 0 && telemonitoreo.verificar_autogestion.active == false && telemonitoreo.tipo_usuario == 'POS'">
+			<div class="text-message">
+				<div class="items">
+					<label>Información adicional</label>
+				</div>
+			</div>
+			<ul class="list-default list-info-patient">
+				<li class="">
+					<div class="info">
+						<span class="bold">Tipo de régimen en salud</span> <br></br>
+						<input type="radio" id="con"  value="36161_C. Contributivo" v-model="regimen">
+						<label for="contributivo">Contributivo</label>
+						<br>
+						<input type="radio" id="sub"  value="36164_S. Subsidiado" v-model="regimen">
+						<label for="subsidiado">Subsidiado</label>
+					</div>
+				</li>
+				<li class="">
+					<div class="info">
+						<span class="bold">Estás en embarazo?</span> <br></br>
+						<input type="radio" id="emb_si"  value="emb_si"  v-model="embarazo">
+						<label for="emb_si">Si</label>
+						<br>
+						<input type="radio" id="emb_no"  value="emb_no" v-model="embarazo">
+						<label for="emb_no">No</label>
+					</div>
+				</li>
+				<li class="">
+					<div class="info">
+						<span class="bold">Estás en quimioterapia?</span> <br></br>
+						<input type="radio" id="qui_si"  value="qui_si" v-model="quimioterapia">
+						<label for="qui_si">Si</label>
+						<br>
+						<input type="radio" id="qui_no"  value="qui_no" v-model="quimioterapia">
+						<label for="qui_no">No</label>
+					</div>
+				</li>
+				<li class="">
+					<div class="info">
+						<span class="bold">Usas inmunosupresores?</span> <br></br>
+						<input type="radio" id="inm_si"  value="inm_si" v-model="inmunosupresores">
+						<label for="inm_si">Si</label>
+						<br>
+						<input type="radio" id="inm_no"  value="inm_no" v-model="inmunosupresores">
+						<label for="inm_no">No</label>
+					</div>
+				</li>
+			</ul>
+		</div>
+		<!-- Informacion adicional POLIZA -->
+		<div class="patient-info" 
+		v-if="Object.keys(user).length !== 0 && telemonitoreo.verificar_autogestion.active == false && telemonitoreo.tipo_usuario=='POLIZA'">
+			<div class="text-message">
+				<div class="items">
+					<label>Información adicional</label>
+				</div>
+			</div>
+			<ul class="list-default list-info-patient">
+				<li class="">
+					<div class="info">
+						<span class="bold">Tipo de régimen en salud</span><span class="required">*</span><br></br>
+						<input type="radio" id="con"  value="contributivo" v-model="datos_poliza.regimen" >
+						<label for="contributivo">Contributivo</label>
+						<br>
+						<input type="radio" id="sub"  value="subsidiado" v-model="datos_poliza.regimen" >
+						<label for="subsidiado">Subsidiado</label>
+					</div>
+				</li>
+				<li class="">
+					<div class="info">
+						<span class="bold">Estás en embarazo?</span><span class="required">*</span><br></br>
+						<input type="radio" id="emb_si"  value="emb_si" v-model="datos_poliza.embarazo">
+						<label for="emb_si">Si</label>
+						<br>
+						<input type="radio" id="emb_no"  value="emb_no" v-model="datos_poliza.embarazo">
+						<label for="emb_no">No</label>
+					</div>
+				</li>
+				<li class="">
+					<div class="info">
+						<span class="bold">Estás en quimioterapia?</span><span class="required">*</span><br></br>
+						<input type="radio" id="qui_si"  value="qui_si" v-model="datos_poliza.quimioterapia">
+						<label for="qui_si">Si</label>
+						<br>
+						<input type="radio" id="qui_no"  value="qui_no" v-model="datos_poliza.quimioterapia">
+						<label for="qui_no">No</label>
+					</div>
+				</li>
+				<li class="">
+					<div class="info">
+						<span class="bold">Usas inmunosupresores?</span><span class="required">*</span><br></br>
+						<input type="radio" id="inm_si"  value="inm_si" v-model="datos_poliza.inmunosupresores">
+						<label for="inm_si">Si</label>
+						<br>
+						<input type="radio" id="inm_no"  value="inm_no" v-model="datos_poliza.inmunosupresores">
+						<label for="inm_no">No</label>
+					</div>
+				</li>
+			</ul>
+		</div>
+		<!-- información de vacunacion POS -->
+		<div class="patient-info" v-if="Object.keys(user).length !== 0 && telemonitoreo.verificar_autogestion.active == false && telemonitoreo.tipo_usuario == 'POS'">
+			<div class="text-message">
+				<div class="items">
+					<label>Información de vacunación</label>
+				</div>
+			</div>
+			<ul class="list-default list-info-patient" v-if="telemonitoreo.infoVacuna[0]">
+				<li class="">
+					<em class="fas fa-virus"></em>
+						<div class="info">
+							Vacuna
+							<span class="bold">{{telemonitoreo.vacunado}}</span>
+						</div>
+				</li>
+				<li>
+					<div class="info" >
+						<span class="span">Número de dosis</span>
+						<span class="bold">{{telemonitoreo.vacuna_dosis}}</span>
+					</div>	
+				</li>
+				<li>
+					<div class="info">
+						<span  class="span">Fecha última dosis</span>
+						<span class="bold">
+							{{telemonitoreo.vacuna_fecha}}							
+						</span>
+					</div>
+				</li>
+				<li>
+					<div class="info" >
+					<span  class="span">Nombre de la vacuna</span>
+					<span class="bold">{{telemonitoreo.vacuna_nombre}}</span>
+					</div>
+				</li>
+			</ul>
+			<div class="name-content" v-if="!telemonitoreo.infoVacuna[0]">{{mensaje_4}}</div>
+			<ul class="list-default list-info-patient" v-if="!telemonitoreo.infoVacuna[0]">
+				<li class="">
+					<em class="fas fa-virus"></em>
+						<div class="info">
+							<span  class="span">vacunado</span>
+							<select name="select" style =width:100% v-model="vacuna_nombre">
+								<option v-for=" item in telemonitoreo.maestras[1].values" :value="item.code" selected>{{item.name}}</option>					
+							</select>
+						</div>
+				</li>
+				<li v-if="telemonitoreo.vacunado == '7875_Si'">
+					<div class="info" >
+						<span class="span">Número de dosis</span>
+						<select name="select" style =width:100% v-model="vacuna_dosis">
+							<option value="value1" selected>1</option>
+							<option value="value2" >2</option>
+							<option value="value3" >3</option>
+						</select>
+					</div>	
+				</li>
+				<li v-if="telemonitoreo.vacunado == '7875_Si'">
+					<div class="info">
+						<span  class="span">Fecha última dosis</span>
+						<input type="date" id="start" name="trip-start" value="2021-05-09" v-model="vacuna_fecha">
+					</div>
+				</li>
+				<li v-if="telemonitoreo.vacunado == '7875_Si'">
+					<div class="info" >
+					<span  class="span">Nombre de la vacuna</span>
+					<select name="select" style =width:100% v-model="vacuna_nombre">
+						<option v-for=" item in telemonitoreo.maestras[0].values" :value="item.name" selected>{{item.name}}</option>					
+					</select>
+					</div>
+				</li>
+			</ul>
+		</div>
+		<!-- información de vacunacion POLIZA -->
+		<div class="patient-info" v-if="Object.keys(user).length !== 0 && telemonitoreo.verificar_autogestion.active == false && telemonitoreo.tipo_usuario == 'POLIZA'">
+			<div class="text-message">
+				<div class="items">
+					<label>Información de vacunación</label>
+				</div>
+			</div>
+			<ul class="list-default list-info-patient" v-if="telemonitoreo.infoVacuna[0]">
+				<li class="">
+					<em class="fas fa-virus"></em>
+						<div class="info">
+							Vacuna
+							<span class="bold">{{telemonitoreo.vacunado}}</span>
+						</div>
+				</li>
+				<li>
+					<div class="info" >
+						<span class="span">Número de dosis</span>
+						<span class="bold">{{telemonitoreo.vacuna_dosis}}</span>
+					</div>	
+				</li>
+				<li>
+					<div class="info">
+						<span  class="span">Fecha última dosis</span>
+						<span class="bold">
+							{{telemonitoreo.vacuna_fecha}}							
+						</span>
+					</div>
+				</li>
+				<li>
+					<div class="info" >
+					<span  class="span">Nombre de la vacuna</span>
+					<span class="bold">{{telemonitoreo.vacuna_nombre}}</span>
+					</div>
+				</li>
+			</ul>
+			<div class="name-content" v-if="!telemonitoreo.infoVacuna[0]">{{mensaje_4}}</div>
+			<ul class="list-default list-info-patient" v-if="!telemonitoreo.infoVacuna[0]">
+				<li class="">
+					<em class="fas fa-virus"></em>
+						<div class="info">
+							Vacunado<br>
+							<span  class="span">vacunado</span>
+							<select name="select" style =width:100% v-model="vacuna_nombre">
+								<option v-for=" item in telemonitoreo.maestras[1].values" :value="item.code" selected>{{item.name}}</option>					
+							</select>
+						</div>
+				</li>
+				<li v-if="telemonitoreo.vacunado == '7875_Si'">
+					<div class="info" >
+						<span class="span">Número de dosis</span>
+						<select name="select" style =width:100% v-model="vacuna_dosis">
+							<option value="value1" selected>1</option>
+							<option value="value2" >2</option>
+							<option value="value3" >3</option>
+						</select>
+					</div>	
+				</li>
+				<li v-if="telemonitoreo.vacunado == '7875_Si'">
+					<div class="info">
+						<span  class="span">Fecha última dosis</span>
+						<input type="date" id="start" name="trip-start" value="2021-05-09" v-model="vacuna_fecha">
+					</div>
+				</li>
+				<li v-if="telemonitoreo.vacunado == '7875_Si'">
+					<div class="info" >
+					<span  class="span">Nombre de la vacuna</span>
+					<select name="select" style =width:100% v-model="vacuna_nombre">
+						<option v-for=" item in telemonitoreo.maestras[0].values" :value="item.name" selected>{{item.name}}</option>					
+					</select>
+					</div>
+				</li>
+			</ul>
+		</div>
+		<!-- Formulario preguntas POS -->
+		<div class="patient-info" 
+		v-if="Object.keys(user).length !== 0 && telemonitoreo.verificar_autogestion.active == false && telemonitoreo.tipo_usuario=='POS'">
+			<div class="text-message">
+				<div class="items">
+					<label>Preguntas</label>
+				</div>
+			</div>
+			<ul class="list-default list-info-patient">
+				<li class="">
+					<div class="info">
+						<span class="bold">¿Uso antibiótico en la última semana?</span><br><br><br>
+						<input type="radio"  id="antibioticosi" class="radiobtn" value="7875_Si" v-model="uso_antibioticos" >
+						<label for="antibioticosi">Si</label>
+						<br>
+						<input type="radio"  id="antibioticono" class="radiobtn" value="7875_No" v-model="uso_antibioticos" >
+						<label for="antibioticono">No</label>
+					</div>
+				</li>
+				<li class="">
+					<div class="info">
+						<span class="bold">¿Usó antivirales la última semana?</span><br><br><br>
+						<input type="radio"  id="antiviralessi" class="radiobtn" value="7875_Si" v-model="uso_antivirales">
+						<label for="antiviralessi">Si</label>
+						<br>
+						<input type="radio"  id="antiviralesno" class="radiobtn" value="7875_No" v-model="uso_antivirales">
+						<label for="antiviralesno">No</label>
+					</div>
+				</li>
+				<li class="">
+					<div class="info">
+						<span class="bold">¿Ha fumado en los últimos 6 meses?</span><br><br><br>
+						<input type="radio"  id="fumasi" value="7875_Si" class="radiobtn" v-model="ha_fumado">
+						<label for="fumasi">Si</label>
+						<br>
+						<input type="radio"  id="fumano" value="7875_No" class="radiobtn" v-model="ha_fumado">
+						<label for="fumano">No</label>	
+					</div>
+				</li>
+				<li class="">
+					<div class="info">
+						<span class="bold">Autoriza Recibir por los canales virtuales las encuestas para el seguimiento COVID?</span><br>
+						<input type="radio" id="si_canales" value="7875_Si" class="radiobtn" v-model="canales" checked="checked">
+						<label for="si_canales">Si</label>
+						<br>
+						<input type="radio" id="no_canales" value="7875_No" class="radiobtn" v-model="canales">
+						<label for="no_canales">No</label>
+					</div>
+				</li>
+			</ul>
+		</div>
+		<!-- Formulario preguntas POLIZA -->
+		<div class="patient-info" 
+		v-if="Object.keys(user).length !== 0 && telemonitoreo.verificar_autogestion.active == false && telemonitoreo.tipo_usuario=='POLIZA'">
+			<div class="text-message">
+				<div class="items">
+					<label>Preguntas</label>
+				</div>
+			</div>
+			<ul class="list-default list-info-patient">
+				<li class="">
+					<div class="info">
+						<span class="bold">¿Uso antibiótico en la última semana?</span><span class="required">*</span><br><br><br>
+						<input type="radio"  id="antibioticosi" class="radiobtn" value="7875_Si" v-model="datos_poliza.uso_antibioticos" >
+						<label for="antibioticosi">Si</label>
+						<br>
+						<input type="radio"  id="antibioticono" class="radiobtn" value="7875_No" v-model="datos_poliza.uso_antibioticos" >
+						<label for="antibioticono">No</label>
+					</div>
+				</li>
+				<li class="">
+					<div class="info">
+						<span class="bold">¿Usó antivirales la última semana?</span><span class="required">*</span><br><br><br>
+						<input type="radio"  id="antiviralessi" class="radiobtn" value="7875_Si" v-model="datos_poliza.uso_antivirales">
+						<label for="antiviralessi">Si</label>
+						<br>
+						<input type="radio"  id="antiviralesno" class="radiobtn" value="7875_No" v-model="datos_poliza.uso_antivirales">
+						<label for="antiviralesno">No</label>
+					</div>
+				</li>
+				<li class="">
+					<div class="info">
+						<span class="bold">¿Ha fumado en los últimos 6 meses?</span><span class="required">*</span><br><br><br>
+						<input type="radio"  id="fumasi" value="7875_Si" class="radiobtn" v-model="datos_poliza.ha_fumado">
+						<label for="fumasi">Si</label>
+						<br>
+						<input type="radio"  id="fumano" value="7875_No" class="radiobtn" v-model="datos_poliza.ha_fumado">
+						<label for="fumano">No</label>	
+					</div>
+				</li>
+				<li class="">
+					<div class="info">
+						<span class="bold">Autoriza Recibir por los canales virtuales las encuestas para el seguimiento COVID?</span><span class="required">*</span><br>
+						<input type="radio" id="si_canales" value="7875_Si" class="radiobtn" v-model="datos_poliza.canales">
+						<label for="si_canales">Si</label>
+						<br>
+						<input type="radio" id="no_canales" value="7875_No" class="radiobtn" v-model="datos_poliza.canales">
+						<label for="no_canales">No</label>
+					</div>
+				</li>
+			</ul>
+		</div>
+		<!-- Formulario correo requerido POS -->
+		<div class="patient-info" 
+		v-if="Object.keys(user).length !== 0 && canales == '7875_No' && telemonitoreo.verificar_autogestion.active == false && telemonitoreo.tipo_usuario =='POS'">
+			<div class="text-message">
+				<br>
+					<p>Por favor ingrese su correo electrónico</p>
+				<br>
+				<div>
+					<input
+						id="email"
+						v-model="correo_electronico"
+						type="email"
+						name="email"
+						>
+				</div>
+			</div>
+		</div>
+		<!-- Formulario correo requerido POLIZA -->
+		<div class="patient-info" 
+		v-if="Object.keys(user).length !== 0 && datos_poliza.canales == '7875_No' && telemonitoreo.verificar_autogestion.active == false && telemonitoreo.tipo_usuario =='POLIZA'">
+			<div class="text-message">
+				<br>
+					<p>Por favor ingrese su correo electrónico</p>
+				<br>
+				<div>
+					<input
+						id="email"
+						v-model="datos_poliza.correo_electronico"
+						type="email"
+						name="email"
+						>
+				</div>
+			</div>
+		</div>
+		<!-- Formulario canales virtuales POS -->
+		<div class="patient-info" 
+		v-if="Object.keys(user).length !== 0 && canales == '7875_Si' && telemonitoreo.verificar_autogestion.active == false && telemonitoreo.tipo_usuario=='POS'">
+			<form action="">
+				<div class="tab-content">
+					<div role="tabpanel" class="tab-pane active" id="questions">
+						<div class="text-message" v-if="mensaje_2">
+							<div class="items">
+								<label>{{mensaje_3}}</label>
+							</div>
+						</div>
+						<div>
+							<table>
+							<ul class="list-default list-info-patient">
+								<li class="">
+									<div class="info">
+										<label>¿El usuario autoriza que realicemos autogestión por un medio virtual?</label><br></br>
+									</div>
+								</li>
+								<li class="">
+									<div class="info">
+									<input type="radio" id="si_canales" style =width:100% value="si" class="radiobtn" v-model="autorizacion_virtual" >
+									<label for="si_canales">Si</label>	
+								</div>		
+								</li>
+								<li class="">
+									<div class="info">
+									<input type="radio" id="no_canales" style =width:100% value="no" class="radiobtn" v-model="autorizacion_virtual" >
+									<label for="no_canales">No</label>	
+									</div>
+								</li>
+								
+								<li class="">
+									<div class="info">
+										<Label></Label>
+									
+									</div>
+								</li>
+							</ul>	
+							<ul class="list-default list-info-patient">
+								<li class="">
+									<div class="info">
+										<label>WhatsApp</label><br></br>
+									</div>
+								</li>
+								<li class="">
+									<div class="info">
+										<input type="radio" id="si_canales" style =width:100% value="si" class="radiobtn"  v-model="whatsap">
+										<label for="si_canales">Si</label>	
+										
+									</div>
+								</li>
+								<li class="">
+									<div class="info">
+										<input type="radio" id="no_canales" style=width:100% value="no"class="radiobtn" v-model="whatsap" >
+										<label for="no_canales">No</label>	
+									</div>
+								</li>
+								<li class="">
+									<div class="info">
+										<Label>Validar celular</Label>
+										<input type="text"  id="celular" style =width:100% name="celular" v-model="numero_whatsap" >
+									</div>
+								</li>
+							</ul> 
+							<ul class="list-default list-info-patient">
+								<li class="">
+									<div class="info">
+										<label>Correo electrónico</label><br></br>
+									</div>
+								</li>
+								<li class="">
+									<div class="info">
+										<input type="radio" id="si_canales" style =width:100% value="si" class="radiobtn" v-model="correo">
+										<label for="si_canales">Si</label>	
+										
+									</div>
+								</li>
+								<li class="">
+									<div class="info">
+										<input type="radio" id="no_canales" style =width:100% value="no" class="radiobtn" v-model="correo">
+										<label for="no_canales">No</label>	
+									</div>
+								</li>
+								<li class="">
+									<div class="info">
+										<Label>Validar correo</Label>
+										<input type="text"  id="correo" style =width:100% name="correo" v-model="correo_electronico" >
+									</div>
+								</li>
+							</ul> 
+							<ul class="list-default list-info-patient">
+								<li class="">
+									<div class="info">
+										<label>Formulario desde mensaje de texto (necesita internet)</label><br></br>
+									</div>
+								</li>
+								<li class="">
+									<div class="info">
+									<input type="radio" id="si_canales" style =width:100% value="si" class="radiobtn" v-model="msm">
+									<label for="si_canales">Si</label>	
+								</div>		
+								</li>
+								<li class="">
+									<div class="info">
+									<input type="radio" id="no_canales" style =width:100% value="no" class="radiobtn" v-model="msm">
+									<label for="no_canales">No</label>
+								</div>	
+								
+								<li class="">
+									<div class="info">
+										<Label></Label>
+									</div>
+								</li>
+								</li>
+							</ul>	
+							<ul class="list-default list-info-patient">
+								<li class="">
+									<div class="info">
+										<label>Llamada telefónica por robot</label>
+									</div>
+								</li>
+								<li class="">
+									<div class="info">
+										<input type="radio" id="si_canales" style =width:100% value="si" class="radiobtn" v-model="llamada_robot" >
+										<label for="si_canales">Si</label>	
+										
+									</div>
+								</li>
+								<li class="">
+									<div class="info">
+										<input type="radio" id="no_canales" style =width:100% value="no" class="radiobtn" v-model="llamada_robot" >
+										<label for="no_canales">No</label>	
+									</div>
+								</li>
+								<li class="">
+									<div class="info">
+										<Label>Validar teléfono</Label>
+										<input type="text"  id="tel" style =width:100% name="tel" v-model="telefono_robot" >
+									</div>
+								</li>
+							</ul> 
+							</table>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+		<!-- Formulario canales virtuales POLIZA -->
+		<div class="patient-info" 
+		v-if="Object.keys(user).length !== 0 && datos_poliza.canales == '7875_Si' && telemonitoreo.verificar_autogestion.active == false && telemonitoreo.tipo_usuario=='POLIZA'">
+			<form action="">
+				<div class="tab-content">
+					<div role="tabpanel" class="tab-pane active" id="questions">
+						<div class="text-message" v-if="mensaje_2">
+							<div class="items">
+								<label>{{mensaje_3}}</label>
+							</div>
+						</div>
+						<div>
+							<table>
+							<ul class="list-default list-info-patient">
+								<li class="">
+									<div class="info">
+										<label>¿El usuario autoriza que realicemos autogestión por un medio virtual?</label><br></br>
+									</div>
+								</li>
+								<li class="">
+									<div class="info">
+									<input type="radio" id="si_canales" style =width:100% value="si" class="radiobtn" v-model="datos_poliza.autorizacion_virtual" >
+									<label for="si_canales">Si</label>	
+								</div>		
+								</li>
+								<li class="">
+									<div class="info">
+									<input type="radio" id="no_canales" style =width:100% value="no" class="radiobtn" v-model="datos_poliza.autorizacion_virtual" >
+									<label for="no_canales">No</label>	
+									</div>
+								</li>
+								
+								<li class="">
+									<div class="info">
+										<Label></Label>
+									
+									</div>
+								</li>
+							</ul>	
+							<ul class="list-default list-info-patient">
+								<li class="">
+									<div class="info">
+										<label>WhatsApp</label><br></br>
+									</div>
+								</li>
+								<li class="">
+									<div class="info">
+										<input type="radio" id="si_canales" style =width:100% value="si" class="radiobtn"  v-model="datos_poliza.whatsapp">
+										<label for="si_canales">Si</label>	
+										
+									</div>
+								</li>
+								<li class="">
+									<div class="info">
+										<input type="radio" id="no_canales" style =width:100% value="no"class="radiobtn" v-model="datos_poliza.whatsapp" >
+										<label for="no_canales">No</label>	
+									</div>
+								</li>
+								<li class="">
+									<div class="info">
+										<Label>Validar celular</Label>
+										<input type="text"  id="celular" style =width:100% name="celular" v-model="datos_poliza.numero_whatsap" >
+									</div>
+								</li>
+							</ul> 
+							<ul class="list-default list-info-patient">
+								<li class="">
+									<div class="info">
+										<label>Correo electrónico</label><br></br>
+									</div>
+								</li>
+								<li class="">
+									<div class="info">
+										<input type="radio" id="si_canales" style =width:100% value="si" class="radiobtn" v-model="datos_poliza.correo">
+										<label for="si_canales">Si</label>	
+										
+									</div>
+								</li>
+								<li class="">
+									<div class="info">
+										<input type="radio" id="no_canales" style =width:100% value="no" class="radiobtn" v-model="datos_poliza.correo">
+										<label for="no_canales">No</label>	
+									</div>
+								</li>
+								<li class="">
+									<div class="info">
+										<Label>Validar correo</Label>
+										<input type="text"  id="correo" style =width:100% name="correo" v-model="datos_poliza.correo_electronico" >
+									</div>
+								</li>
+							</ul> 
+							<ul class="list-default list-info-patient">
+								<li class="">
+									<div class="info">
+										<label>Formulario desde mensaje de texto (necesita internet)</label><br></br>
+									</div>
+								</li>
+								<li class="">
+									<div class="info">
+									<input type="radio" id="si_canales" style =width:100% value="si" class="radiobtn" v-model="datos_poliza.msm">
+									<label for="si_canales">Si</label>	
+								</div>		
+								</li>
+								<li class="">
+									<div class="info">
+									<input type="radio" id="no_canales" style =width:100% value="no" class="radiobtn" v-model="datos_poliza.msm">
+									<label for="no_canales">No</label>
+								</div>	
+								
+								<li class="">
+									<div class="info">
+										<Label></Label>
+									</div>
+								</li>
+								</li>
+							</ul>	
+							<ul class="list-default list-info-patient">
+								<li class="">
+									<div class="info">
+										<label>Llamada telefónica por robot</label>
+									</div>
+								</li>
+								<li class="">
+									<div class="info">
+										<input type="radio" id="si_canales" style =width:100% value="si" class="radiobtn" v-model="datos_poliza.llamada_robot" >
+										<label for="si_canales">Si</label>	
+										
+									</div>
+								</li>
+								<li class="">
+									<div class="info">
+										<input type="radio" id="no_canales" style =width:100% value="no" class="radiobtn" v-model="datos_poliza.llamada_robot" >
+										<label for="no_canales">No</label>	
+									</div>
+								</li>
+								<li class="">
+									<div class="info">
+										<Label>Validar teléfono</Label>
+										<input type="text"  id="tel" style =width:100% name="tel" v-model="datos_poliza.telefono_robot" >
+									</div>
+								</li>
+							</ul> 
+							</table>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+		<!-- boton de varificar formulario POS -->
+		<div class="btn-group btncenter" role="group" 
+		v-if="Object.keys(user).length !== 0 && telemonitoreo.verificar_autogestion.active == false && telemonitoreo.tipo_usuario =='POS'">
+			<a class="btn c-1" @click="checkForm()" aria-controls="questions" role="tab" data-toggle="tab">
+				<em class="fal fa-arrow-right"></em>
+				Enviar
+			</a>
+		</div>
+		<!-- boton de varificar formulario POLIZA -->
+		<div class="btn-group btncenter" role="group" 
+		v-if="Object.keys(user).length !== 0 && telemonitoreo.verificar_autogestion.active == false && telemonitoreo.tipo_usuario =='POLIZA'">
+			<a class="btn c-1" @click="checkFormPoliza()" aria-controls="questions" role="tab" data-toggle="tab">
+				<em class="fal fa-arrow-right"></em>
+				Enviar
+			</a>
+		</div>
+		<br>
+		<!--Modal editar informacion POS-->
+		<div class="modal fade" id="modalEdit" tabindex="-1" role="dialog" aria-labelledby="modalInfoLabel" 
+		v-if="Object.keys(user).length !== 0 && telemonitoreo.verificar_autogestion.active == false && telemonitoreo.tipo_usuario == 'POS'" >
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+								aria-hidden="true">&times;</span></button>
+						<h4 class="modal-title" id="modalInfoLabel">Editar información</h4>
+					</div>
+				<div class="modal-body">
+						<div class="content-info">
+							<ul class="list-default">
+							<div class="row">
+								<div class="column">
+									<p>Nombres y Apellidos</p>
+								</div>
+								<div class="column">
+									<span class="bold">
+										{{telemonitoreo.datosPersonales.Envelope.Body.consultarAfiliadoExtendidoResponse.afiliadoConsultaExtendido.primerNombre}}
+										{{telemonitoreo.datosPersonales.Envelope.Body.consultarAfiliadoExtendidoResponse.afiliadoConsultaExtendido.segundoNombre}}
+										{{telemonitoreo.datosPersonales.Envelope.Body.consultarAfiliadoExtendidoResponse.afiliadoConsultaExtendido.primerApellido}}
+										{{telemonitoreo.datosPersonales.Envelope.Body.consultarAfiliadoExtendidoResponse.afiliadoConsultaExtendido.segundoApellido}} </span>
+								</div>
+							</div><br>
+							<div class="row">
+								<div class="column">
+									<p>Número de identificación</p>
+								</div>
+								<div class="column">
+									<p>
+										<span class="bold"> {{user.id}}</span> 
+									</p>
+								</div>
+							</div><br>
+							<div class="row">
+								<div class="column">
+									<p>Fecha de nacimiento</p>
+								</div>
+								<div class="column">
+									<p>
+										<span class="bold">{{telemonitoreo.fecha_nacimiento}}</span>
+									</p>
+								</div>
+							</div><br>
+							<div class="row">
+								<div class="column">
+									<p>Edad</p>
+								</div>
+								<div class="column">
+									<p>
+										<span class="bold">{{telemonitoreo.edad}} años</span>
+									</p>
+								</div>
+							</div><br>
+							<div class="row">
+								<div class="column">
+									<p>Teléfono</p>
+								</div>
+								<div class="column">
+									<p>
+										<input v-validate="'decimal:10'" name="decimal_field" type="number" v-model.lazy="telefono1">
+									</p>
+								</div>
+							</div>
+							<br>
+							<div class="row">
+								<div class="column">
+									<p>Celular</p>
+								</div>
+								<div class="column">
+									<p>
+										<input v-validate="'decimal:10'" name="decimal_field" type="number" v-model.lazy="telefono2">
+									</p>
+									
+								</div>
+							</div>
+							<br>
+							<div class="row">
+								<div class="column">
+									<p>Sexo</p>
+								</div>
+								<div class="column">
+									<p>
+										<span class="bold">{{telemonitoreo.datosPersonales.Envelope.Body.consultarAfiliadoExtendidoResponse.afiliadoConsultaExtendido.sexo}}</span>
+									</p>
+								</div>
+							</div>
+							<br>
+							<div class="row">
+								<div class="column">
+									<p>Nacionalidad</p>
+								</div>
+								<div class="column">
+									<p>
+										<span  class="bold">Colombia</span>
+									</p>
+								</div>
+							</div>
+						</ul>
+						
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn c-1" data-dismiss="modal">Guardar</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--Modal editar informacion POLIZA-->
+		<div class="modal fade" id="modalEdit" tabindex="-1" role="dialog" aria-labelledby="modalInfoLabel" 
+		v-if="Object.keys(user).length !== 0 && telemonitoreo.verificar_autogestion.active == false && telemonitoreo.tipo_usuario == 'POLIZA'" >
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+								aria-hidden="true">&times;</span></button>
+						<h4 class="modal-title" id="modalInfoLabel">Editar información</h4>
+					</div>
+				<div class="modal-body">
+						<div class="content-info">
+							<ul class="list-default">
+							<div class="row">
+								<div class="column">
+									<p>Nombres y Apellidos</p>
+								</div>
+								<div class="column">
+									<span class="bold">
+										{{telemonitoreo.datosPersonalesPoliza.informacionBeneficiario.dsNombre1}}
+										{{telemonitoreo.datosPersonalesPoliza.informacionBeneficiario.dsNombre2}}
+										{{telemonitoreo.datosPersonalesPoliza.informacionBeneficiario.dsApellido1}}
+										{{telemonitoreo.datosPersonalesPoliza.informacionBeneficiario.dsApellido2}}
+									</span>
+								</div>
+							</div><br>
+							<div class="row">
+								<div class="column">
+									<p>Número de identificación</p>
+								</div>
+								<div class="column">
+									<p>
+										<span class="bold"> {{user.id}}</span> 
+									</p>
+								</div>
+							</div><br>
+							<div class="row">
+								<div class="column">
+									<p>Fecha de nacimiento</p>
+								</div>
+								<div class="column">
+									<p>
+										<span class="bold">{{telemonitoreo.datos_poliza.fecha_nacimiento}}</span>
+									</p>
+								</div>
+							</div><br>
+							<div class="row">
+								<div class="column">
+									<p>Edad</p>
+								</div>
+								<div class="column">
+									<p>
+										<span class="bold">{{telemonitoreo.datos_poliza.edad}} años</span>
+									</p>
+								</div>
+							</div><br>
+							<div class="row">
+								<div class="column">
+									<p>Teléfono</p>
+								</div>
+								<div class="column">
+									<p>
+										<input v-validate="'numeric'" data-vv-as="field" name="numeric_field" type="number" v-model.lazy="datos_poliza.telefono">
+									</p>
+								</div>
+							</div>
+							<br>
+							<div class="row">
+								<div class="column">
+									<p>Celular</p>
+								</div>
+								<div class="column">
+									<p>
+										<input v-validate="'numeric'" data-vv-as="field" name="numeric_field" type="number" v-model.lazy="datos_poliza.celular">
+									</p>
+									
+								</div>
+							</div>
+							<br>
+							<div class="row">
+								<div class="column">
+									<p>Direccion</p>
+								</div>
+								<div class="column">
+									<p>
+										<input v-validate="'alpha_num'" name="alpha_num_field" type="text" v-model.lazy="datos_poliza.direccion">
+									</p>
+								</div>
+							</div>
+							<br>
+							<div class="row">
+								<div class="column">
+									<p>Sexo</p>
+								</div>
+								<div class="column">
+									<p>
+										<span class="bold">{{telemonitoreo.datosPersonalesPoliza.informacionBeneficiario.dsSexo}}</span>
+									</p>
+								</div>
+							</div>
+						</ul>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn c-1" data-dismiss="modal">Guardar</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--Modal enviar formulario POS-->
+		<div class="modal fade" id="modalInfo" tabindex="-1" role="dialog" aria-labelledby="modalInfoLabel" 
+		v-if="Object.keys(user).length !== 0 && telemonitoreo.verificar_autogestion.active == false && telemonitoreo.tipo_usuario=='POS'">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+								aria-hidden="true">&times;</span></button>
+						<h4 class="modal-title" id="modalInfoLabel">Respuesta</h4>
+					</div>
+					<div class="modal-body">
+						<p v-if="telemonitoreo.errors.length">
+							<b  class='bold'>Por favor responda los preguntas faltantes:</b>
+							<ul>
+							<li v-for="error in telemonitoreo.errors ">{{ error }}</li>
+							</ul>
+						</p>
+						<p v-if="telemonitoreo.formulario_ok==1">
+							<b  class='bold'>Formulario Completo</b>
+						</p>
+					</div> 
+					<div class="modal-footer">
+						<button type="button" v-on:click="gurdarFormulario('POS')" class="btn c-1" data-dismiss="modal" v-if="!telemonitoreo.errors.length">Guardar</button>
+						<button type="button" class="btn c-1" data-dismiss="modal">Cerrar</button>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+		<!--Modal enviar formulario POLIZA-->
+		<div class="modal fade" id="modalInfo" tabindex="-1" role="dialog" aria-labelledby="modalInfoLabel" 
+		v-if="Object.keys(user).length !== 0 && telemonitoreo.verificar_autogestion.active == false && telemonitoreo.tipo_usuario=='POLIZA'">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+								aria-hidden="true">&times;</span></button>
+						<h4 class="modal-title" id="modalInfoLabel">Respuesta</h4>
+					</div>
+					<div class="modal-body">
+						<p v-if="telemonitoreo.errors.length">
+							<b  class='bold'>Por favor responda los preguntas faltantes:</b>
+							<ul>
+							<li v-for="error in telemonitoreo.errors ">{{ error }}</li>
+							</ul>
+							<p v-if="telemonitoreo.formulario_ok==1">
+								<b  class='bold'>Formulario Completo</b>
+							</p>
+						</p>
+					</div> 
+					<div class="modal-footer">
+						<button type="button" v-on:click="gurdarFormulario('POLIZA')" class="btn c-1" data-dismiss="modal" v-if="!telemonitoreo.errors.length">Guardar</button>
+						<button type="button" class="btn c-1" data-dismiss="modal">Cerrar</button>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+		<div class="modal fade" id="modalNotifi" tabindex="-1" role="dialog" data-backdrop="static" aria-labelledby="modalInfoLabel" v-if="Object.keys(user).length !== 0 && telemonitoreo.verificar_autogestion.active == false">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title" id="modalInfoLabel">Información <span class="bold">guardada</span></h4>
+					</div>
+					<div class="modal-body">
+						<div class="content-info">
+							<div class="detail">
+								<div class="icon">
+									<em class="fal fa-paper-plane"></em>
+								</div>
+								<div class="info">
+									<ul>
+										<li>{{result_send_data}}</li>
+										<li>La información ha sido<span class="bold">almacenada correctamente.</span>
+											Ya puedes <span class="bold"> cerrar esta página</span> </li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<!-- Jquery -->
+	<script src="/Style%20Library/js/jquery.min.js"></script>
+	<!-- Bootstrap -->
+	<script src="/formularios/covid-19/lab/caso5/js/bootstrap.min.js"></script>
+	<!-- Bootstrap datetimepicker -->	
+	<script src="/Style%20Library/js/moment.min.js"></script>
+	<script src="/Style%20Library/js/bootstrap-datetimepicker.min.js"></script>
+    <!-- Bootstrap select -->
+    <script src="/Style%20Library/js/bootstrap-select.min.js"></script>
+	<!-- jsdelivr cdn -->
+	<script src="https://cdn.jsdelivr.net/npm/vee-validate@<3.0.0/dist/vee-validate.js"></script>
+	<!-- unpkg -->
+	<script src="https://unpkg.com/vee-validate@<3.0.0"></script>
+    <!-- develop -->
+    <script src="/Style%20Library/js/vue.min.js"></script>
+	<script src="/formularios/covid-19/lab/caso5/js/urls.js?1"></script>
+	<script src="/formularios/covid-19/lab/caso5/js/formularios.js?2"></script>
+	<script src="/formularios/covid-19/lab/caso5/js/maestras.js?2"></script>
+    <script src="/formularios/covid-19/lab/caso5/js/caso5.js?6"></script>
+	<style>
+		
+		/* Set additional styling options for the columns*/
+		.column {
+		float: left;
+		width: 50%;
+		}
+	
+		.row:after {
+		content: "";
+		display: table;
+		clear: both;
+		}
+		.radiobtn{
+		height: 20px;
+		width: 20px;
+ 		border-radius: 100%;
+ 		left: 15px;
+		}
+		.bold{
+			font-weight: bold;
+		}
+	</style>
+	
+</body>
+
+
+</html>
