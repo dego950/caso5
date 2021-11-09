@@ -6,78 +6,105 @@ var maestras =[
 				"concept_id":37411,
         "codigo":"37411_Vacuna Covid-19 Pai - Dosis Unica",
 				"name":"Vacuna Covid-19 Pai - Dosis Unica",
+        "codIpsa":970341,
+        "dosisipsa": 1,
 				"external_code":""
 				},
 			{
 				"concept_id":37412,
-        "codigo":"37412_Vacuna Covid-19 Pai Pfizer - Primera Dosis",
+        "codigo":"37412_Vacuna Covid-19 Pai Pfizer - Primera Dosis", 
 				"name":"Vacuna Covid-19 Pai Pfizer - Primera Dosis",
+        "codIpsa":112097,
+        "dosisipsa":1,
 				"external_code":""
 			},	
 			{ 
 				"concept_id":37413,
         "codigo":"37413_Vacuna Covid-19 Pai Pfizer - Segunda Dosis",
 				"name":"Vacuna Covid-19 Pai Pfizer - Segunda Dosis",
+        "codIpsa":112097,
+        "dosisipsa":2,
 				"external_code":""
 			},
 			{	
 				"concept_id":37832,
         "codigo":"37832_Vacuna Covid-19 Pai Pfizer (Refuerzo)",
 				"name":"Vacuna Covid-19 Pai Pfizer (Refuerzo)",
+        "codIpsa":112097,
+        "dosisipsa":3,
 				"external_code":""
 			},
 			{	
 				"concept_id":37414,
         "codigo":"37414_Vacuna Covid-19 Pai Astrazeneca - Primera Dosis",
 				"name":"Vacuna Covid-19 Pai Astrazeneca - Primera Dosis",
+        "codIpsa":112098,
+        "dosisipsa":1,
 				"external_code":""
 			},		
 			{	
 				"concept_id":37415,
         "codigo":"37415_Vacuna Covid-19 Pai Astrazeneca - Segunda Dosis",
 				"name":"Vacuna Covid-19 Pai Astrazeneca - Segunda Dosis",
+        "codIpsa":112098,
+        "dosisipsa":2,
 				"external_code":""
 			},		
 			{
 				"concept_id":37833,
         "codigo":"37833_Vacuna Covid-19 Pai Astrazeneca (Refuerzo)",
 				"name":"Vacuna Covid-19 Pai Astrazeneca (Refuerzo)",
+        "codIpsa":112098,
+        "dosisipsa":3,
 				"external_code":""
 			},	
 			{
 				"concept_id":37418,
         "codigo":"37418_Vacuna Covid-19 Pai Moderna - Primera Dosis",
 				"name":"Vacuna Covid-19 Pai Moderna - Primera Dosis",
+        "codIpsa":122000,
+        "dosisipsa":1,
 				"external_code":""
 			},	
 			{
 				"concept_id":37419,
         "codigo":"37419_Vacuna Covid-19 Pai Moderna - Segunda Dosis",
 				"name":"Vacuna Covid-19 Pai Moderna - Segunda Dosis",
+        "codIpsa":122000,
+        "dosisipsa":2,
 				"external_code":""
 			},	
 			{
 				"concept_id":37834,
         "codigo":"37834_Vacuna Covid-19 Pai Moderna (Refuerzo)",
 				"name":"Vacuna Covid-19 Pai Moderna (Refuerzo)",
+        "codIpsa":122000,
+        "dosisipsa":3,
 				"external_code":""
 			},	
 			{
 				"concept_id":37416,
         "codigo":"37416_Vacuna Covid-19 Pai Sinovac - Primera Dosis",
 				"name":"Vacuna Covid-19 Pai Sinovac - Primera Dosis",
+        "codIpsa":122001,
+        "dosisipsa":1,
 				"external_code":""
 			},	
 			{
 				"concept_id":37417,
         "codigo":"37417_Vacuna Covid-19 Pai Sinovac - Segunda Dosis",
 				"name":"Vacuna Covid-19 Pai Sinovac - Segunda Dosis",
+        "codIpsa":122001,
+        "dosisipsa":2,
 				"external_code":""
+        
 			},
 			{
 				"concept_id":37835,
         "codigo":"37835_Vacuna Covid-19 Pai Sinovac (Refuerzo)",
 				"name":"Vacuna Covid-19 Pai Sinovac (Refuerzo)",
+        "nameipsa":122001,
+        "dosisipsa":3,
 				"external_code":""
 			},			
 		]
