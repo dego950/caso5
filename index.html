@@ -482,7 +482,7 @@
 					<em class="fas fa-virus"></em>
 						<div class="info">
 							<span  class="span">vacunado</span>
-							<select name="select" style =width:100% v-model="vacuna_nombre">
+							<select name="select" style =width:100% v-model="vacunado">
 								<option v-for=" item in telemonitoreo.maestras[1].values" :value="item.code" selected>{{item.name}}</option>					
 							</select>
 						</div>
@@ -491,9 +491,9 @@
 					<div class="info" >
 						<span class="span">Número de dosis</span>
 						<select name="select" style =width:100% v-model="vacuna_dosis">
-							<option value="value1" selected>1</option>
-							<option value="value2" >2</option>
-							<option value="value3" >3</option>
+							<option value="1" selected>1</option>
+							<option value="2" >2</option>
+							<option value="3" >3</option>
 						</select>
 					</div>	
 				</li>
@@ -507,7 +507,7 @@
 					<div class="info" >
 					<span  class="span">Nombre de la vacuna</span>
 					<select name="select" style =width:100% v-model="vacuna_nombre">
-						<option v-for=" item in telemonitoreo.maestras[0].values" :value="item.name" selected>{{item.name}}</option>					
+						<option v-for=" item in telemonitoreo.maestras[0].values" :value="item.codigo" selected>{{item.name}}</option>					
 					</select>
 					</div>
 				</li>
@@ -554,9 +554,8 @@
 				<li class="">
 					<em class="fas fa-virus"></em>
 						<div class="info">
-							Vacunado<br>
 							<span  class="span">vacunado</span>
-							<select name="select" style =width:100% v-model="vacuna_nombre">
+							<select name="select" style =width:100% v-model="vacunado">
 								<option v-for=" item in telemonitoreo.maestras[1].values" :value="item.code" selected>{{item.name}}</option>					
 							</select>
 						</div>
@@ -565,9 +564,9 @@
 					<div class="info" >
 						<span class="span">Número de dosis</span>
 						<select name="select" style =width:100% v-model="vacuna_dosis">
-							<option value="value1" selected>1</option>
-							<option value="value2" >2</option>
-							<option value="value3" >3</option>
+							<option value="1" selected>1</option>
+							<option value="2" >2</option>
+							<option value="3" >3</option>
 						</select>
 					</div>	
 				</li>
@@ -581,7 +580,7 @@
 					<div class="info" >
 					<span  class="span">Nombre de la vacuna</span>
 					<select name="select" style =width:100% v-model="vacuna_nombre">
-						<option v-for=" item in telemonitoreo.maestras[0].values" :value="item.name" selected>{{item.name}}</option>					
+						<option v-for=" item in telemonitoreo.maestras[0].values" :value="item.codigo" selected>{{item.name}}</option>					
 					</select>
 					</div>
 				</li>
@@ -744,13 +743,13 @@
 								</li>
 								<li class="">
 									<div class="info">
-									<input type="radio" id="si_canales" style =width:100% value="si" class="radiobtn" v-model="autorizacion_virtual" >
+									<input type="radio" id="si_canales" style =width:100% value="7875_Si" class="radiobtn" v-model="autorizacion_virtual" >
 									<label for="si_canales">Si</label>	
 								</div>		
 								</li>
 								<li class="">
 									<div class="info">
-									<input type="radio" id="no_canales" style =width:100% value="no" class="radiobtn" v-model="autorizacion_virtual" >
+									<input type="radio" id="no_canales" style =width:100% value="7876_No" class="radiobtn" v-model="autorizacion_virtual" >
 									<label for="no_canales">No</label>	
 									</div>
 								</li>
@@ -770,21 +769,21 @@
 								</li>
 								<li class="">
 									<div class="info">
-										<input type="radio" id="si_canales" style =width:100% value="si" class="radiobtn"  v-model="whatsap">
+										<input type="radio" id="si_canales" style =width:100% value="7875_Si" class="radiobtn"  v-model="whatsap">
 										<label for="si_canales">Si</label>	
 										
 									</div>
 								</li>
 								<li class="">
 									<div class="info">
-										<input type="radio" id="no_canales" style=width:100% value="no"class="radiobtn" v-model="whatsap" >
+										<input type="radio" id="no_canales" style=width:100% value="7876_No"class="radiobtn" v-model="whatsap" >
 										<label for="no_canales">No</label>	
 									</div>
 								</li>
 								<li class="">
 									<div class="info">
 										<Label>Validar celular</Label>
-										<input type="text"  id="celular" style =width:100% name="celular" v-model="numero_whatsap" >
+										<input type="text"  id="celular" style =width:100% name="celular" v-model="telefono2" >
 									</div>
 								</li>
 							</ul> 
@@ -796,14 +795,14 @@
 								</li>
 								<li class="">
 									<div class="info">
-										<input type="radio" id="si_canales" style =width:100% value="si" class="radiobtn" v-model="correo">
+										<input type="radio" id="si_canales" style =width:100% value="7875_Si" class="radiobtn" v-model="correo">
 										<label for="si_canales">Si</label>	
 										
 									</div>
 								</li>
 								<li class="">
 									<div class="info">
-										<input type="radio" id="no_canales" style =width:100% value="no" class="radiobtn" v-model="correo">
+										<input type="radio" id="no_canales" style =width:100% value="7876_No" class="radiobtn" v-model="correo">
 										<label for="no_canales">No</label>	
 									</div>
 								</li>
@@ -822,13 +821,13 @@
 								</li>
 								<li class="">
 									<div class="info">
-									<input type="radio" id="si_canales" style =width:100% value="si" class="radiobtn" v-model="msm">
+									<input type="radio" id="si_canales" style =width:100% value="7875_Si" class="radiobtn" v-model="msm">
 									<label for="si_canales">Si</label>	
 								</div>		
 								</li>
 								<li class="">
 									<div class="info">
-									<input type="radio" id="no_canales" style =width:100% value="no" class="radiobtn" v-model="msm">
+									<input type="radio" id="no_canales" style =width:100% value="7876_No" class="radiobtn" v-model="msm">
 									<label for="no_canales">No</label>
 								</div>	
 								
@@ -847,21 +846,21 @@
 								</li>
 								<li class="">
 									<div class="info">
-										<input type="radio" id="si_canales" style =width:100% value="si" class="radiobtn" v-model="llamada_robot" >
+										<input type="radio" id="si_canales" style =width:100% value="7875_Si" class="radiobtn" v-model="llamada_robot" >
 										<label for="si_canales">Si</label>	
 										
 									</div>
 								</li>
 								<li class="">
 									<div class="info">
-										<input type="radio" id="no_canales" style =width:100% value="no" class="radiobtn" v-model="llamada_robot" >
+										<input type="radio" id="no_canales" style =width:100% value="7876_No" class="radiobtn" v-model="llamada_robot" >
 										<label for="no_canales">No</label>	
 									</div>
 								</li>
 								<li class="">
 									<div class="info">
 										<Label>Validar teléfono</Label>
-										<input type="text"  id="tel" style =width:100% name="tel" v-model="telefono_robot" >
+										<input type="text"  id="tel" style =width:100% name="tel" v-model="telefono1" >
 									</div>
 								</li>
 							</ul> 
@@ -892,13 +891,13 @@
 								</li>
 								<li class="">
 									<div class="info">
-									<input type="radio" id="si_canales" style =width:100% value="si" class="radiobtn" v-model="datos_poliza.autorizacion_virtual" >
+									<input type="radio" id="si_canales" style =width:100% value="7875_Si" class="radiobtn" v-model="datos_poliza.autorizacion_virtual" >
 									<label for="si_canales">Si</label>	
 								</div>		
 								</li>
 								<li class="">
 									<div class="info">
-									<input type="radio" id="no_canales" style =width:100% value="no" class="radiobtn" v-model="datos_poliza.autorizacion_virtual" >
+									<input type="radio" id="no_canales" style =width:100% value="7876_No" class="radiobtn" v-model="datos_poliza.autorizacion_virtual" >
 									<label for="no_canales">No</label>	
 									</div>
 								</li>
@@ -918,21 +917,21 @@
 								</li>
 								<li class="">
 									<div class="info">
-										<input type="radio" id="si_canales" style =width:100% value="si" class="radiobtn"  v-model="datos_poliza.whatsapp">
+										<input type="radio" id="si_canales" style =width:100% value="7875_Si" class="radiobtn"  v-model="datos_poliza.whatsapp">
 										<label for="si_canales">Si</label>	
 										
 									</div>
 								</li>
 								<li class="">
 									<div class="info">
-										<input type="radio" id="no_canales" style =width:100% value="no"class="radiobtn" v-model="datos_poliza.whatsapp" >
+										<input type="radio" id="no_canales" style =width:100% value="7876_No"class="radiobtn" v-model="datos_poliza.whatsapp" >
 										<label for="no_canales">No</label>	
 									</div>
 								</li>
 								<li class="">
 									<div class="info">
 										<Label>Validar celular</Label>
-										<input type="text"  id="celular" style =width:100% name="celular" v-model="datos_poliza.numero_whatsap" >
+										<input type="text"  id="celular" style =width:100% name="celular" v-model="datos_poliza.celular" >
 									</div>
 								</li>
 							</ul> 
@@ -944,14 +943,14 @@
 								</li>
 								<li class="">
 									<div class="info">
-										<input type="radio" id="si_canales" style =width:100% value="si" class="radiobtn" v-model="datos_poliza.correo">
+										<input type="radio" id="si_canales" style =width:100% value="7875_Si" class="radiobtn" v-model="datos_poliza.correo">
 										<label for="si_canales">Si</label>	
 										
 									</div>
 								</li>
 								<li class="">
 									<div class="info">
-										<input type="radio" id="no_canales" style =width:100% value="no" class="radiobtn" v-model="datos_poliza.correo">
+										<input type="radio" id="no_canales" style =width:100% value="7876_No" class="radiobtn" v-model="datos_poliza.correo">
 										<label for="no_canales">No</label>	
 									</div>
 								</li>
@@ -970,13 +969,13 @@
 								</li>
 								<li class="">
 									<div class="info">
-									<input type="radio" id="si_canales" style =width:100% value="si" class="radiobtn" v-model="datos_poliza.msm">
+									<input type="radio" id="si_canales" style =width:100% value="7875_Si" class="radiobtn" v-model="datos_poliza.msm">
 									<label for="si_canales">Si</label>	
 								</div>		
 								</li>
 								<li class="">
 									<div class="info">
-									<input type="radio" id="no_canales" style =width:100% value="no" class="radiobtn" v-model="datos_poliza.msm">
+									<input type="radio" id="no_canales" style =width:100% value="7876_No" class="radiobtn" v-model="datos_poliza.msm">
 									<label for="no_canales">No</label>
 								</div>	
 								
@@ -995,21 +994,21 @@
 								</li>
 								<li class="">
 									<div class="info">
-										<input type="radio" id="si_canales" style =width:100% value="si" class="radiobtn" v-model="datos_poliza.llamada_robot" >
+										<input type="radio" id="si_canales" style =width:100% value="7875_Si" class="radiobtn" v-model="datos_poliza.llamada_robot" >
 										<label for="si_canales">Si</label>	
 										
 									</div>
 								</li>
 								<li class="">
 									<div class="info">
-										<input type="radio" id="no_canales" style =width:100% value="no" class="radiobtn" v-model="datos_poliza.llamada_robot" >
+										<input type="radio" id="no_canales" style =width:100% value="7876_No" class="radiobtn" v-model="datos_poliza.llamada_robot" >
 										<label for="no_canales">No</label>	
 									</div>
 								</li>
 								<li class="">
 									<div class="info">
 										<Label>Validar teléfono</Label>
-										<input type="text"  id="tel" style =width:100% name="tel" v-model="datos_poliza.telefono_robot" >
+										<input type="text"  id="tel" style =width:100% name="tel" v-model="datos_poliza.telefono" >
 									</div>
 								</li>
 							</ul> 
@@ -1207,7 +1206,7 @@
 								</div>
 								<div class="column">
 									<p>
-										<input v-validate="'numeric'" data-vv-as="field" name="numeric_field" type="number" v-model.lazy="datos_poliza.telefono">
+										<input v-validate="'numeric'" data-vv-as="field" name="numeric_field" type="number" maxlength="10" oninput="if(this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength)" v-model.lazy="datos_poliza.telefono">
 									</p>
 								</div>
 							</div>
@@ -1218,7 +1217,7 @@
 								</div>
 								<div class="column">
 									<p>
-										<input v-validate="'numeric'" data-vv-as="field" name="numeric_field" type="number" v-model.lazy="datos_poliza.celular">
+										<input v-validate="'numeric'" data-vv-as="field" name="numeric_field" type="number" maxlength="10" oninput="if(this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength)" v-model.lazy="datos_poliza.celular">
 									</p>
 									
 								</div>
@@ -1326,7 +1325,6 @@
 								</div>
 								<div class="info">
 									<ul>
-										<li>{{result_send_data}}</li>
 										<li>La información ha sido<span class="bold">almacenada correctamente.</span>
 											Ya puedes <span class="bold"> cerrar esta página</span> </li>
 									</ul>

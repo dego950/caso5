@@ -49,6 +49,7 @@ $(document).ready(() => {
 			id: "",
 			tipoid: "",
 			regimen: "",
+			sexo: "",
 			vacunado: '',
 			embarazo: '',
 			quimioterapia:'',
@@ -529,17 +530,32 @@ $(document).ready(() => {
 								telemonitoreo.fecha_nacimiento = moment(telemonitoreo.datosPersonales.Envelope.Body.consultarAfiliadoExtendidoResponse.afiliadoConsultaExtendido.fechaNacimiento).format("DD-MM-YYYY");
 								telemonitoreo.edad = telemonitoreo.calcularEdad(telemonitoreo.fecha_nacimiento, true).toString();
 								telemonitoreo.pos_activo = telemonitoreo.datosPersonales.Envelope.Body.consultarAfiliadoExtendidoResponse.afiliadoConsultaExtendido.tienePOS;
+								telemonitoreo.correo_electronico = telemonitoreo.datosPersonales.Envelope.Body.consultarAfiliadoExtendidoResponse.afiliadoConsultaExtendido.ubicacion.direccionElectronica;
 								if (telemonitoreo.pos_activo ==true) {
-									telemonitoreo.eps.titulo = 'COMPAÑIA SURAMERICANA DE SERVICIOS DE SALUD S.A SUSALUD MEDICINA PREPAGADA';
-									telemonitoreo.eps.codigo = '36077_SURA E.P.S'
+									telemonitoreo.eps.titulo = '36077_SURA E.P.S';
+									telemonitoreo.eps.codigo = 'EMP021'
+								}
+								var sexo = telemonitoreo.datosPersonales.Envelope.Body.consultarAfiliadoExtendidoResponse.afiliadoConsultaExtendido.sexo;
+								switch (sexo) {
+									case 'M':
+										telemonitoreo.sexo ="Masculino"
+										break;
+									case 'F':
+										telemonitoreo.sexo ="Femenino"
+										break;
+									case 'I':
+										telemonitoreo.sexo ="Indeterminado"
+										break;
+									default:
+										break;
 								}
 
-								telemonitoreo.ciudad = telemonitoreo.datosPersonales.Envelope.Body.consultarAfiliadoExtendidoResponse.afiliadoConsultaExtendido.ubicacion.municipio;
+								var ciudad = telemonitoreo.datosPersonales.Envelope.Body.consultarAfiliadoExtendidoResponse.afiliadoConsultaExtendido.ubicacion.municipio;
 								var array = telemonitoreo.maestras[2].values;
 								for (let i = 0; i < array.length; i++) {
 									const element = array[i];
-									console.log(element.external_code == telemonitoreo.ciudad);
 
+									console.log(element);
 									
 								}
 							}
@@ -572,11 +588,25 @@ $(document).ready(() => {
 								var msgdata = (typeof jsonObject == "object" ? jsonObject : JSON.parse(result));
 								telemonitoreo.datosPersonalesPoliza = msgdata.Envelope.Body.getInformacionBeneficiarioPACResponse;
 								telemonitoreo.datos_poliza.fecha_nacimiento = moment(telemonitoreo.datosPersonalesPoliza.informacionBeneficiario.feNacimiento).format("DD-MM-YYYY");
-								telemonitoreo.datos_poliza.edad = telemonitoreo.calcularEdad(telemonitoreo.datos_poliza.fecha_nacimiento, true);
+								telemonitoreo.datos_poliza.edad = telemonitoreo.calcularEdad(telemonitoreo.datos_poliza.fecha_nacimiento, true).toString();
 								telemonitoreo.datos_poliza.fecha_hoy = Date(Date.parse("2012-01-26T13:51:50.417-07:00"));
 								//telemonitoreo.datos_poliza.nacionalidad =
 								telemonitoreo.tipo_usuario = "POLIZA"
 								console.log('Datos Poliza' + telemonitoreo.datosPersonalesPoliza);
+								var sexo = telemonitoreo.datosPersonalesPoliza.informacionBeneficiario.dsSexo;
+								switch (sexo) {
+									case 'M':
+										telemonitoreo.datos_poliza.sexo ="Masculino"
+										break;
+									case 'F':
+										telemonitoreo.datos_poliza.sexo ="Femenino"
+										break;
+									case 'I':
+										telemonitoreo.datos_poliza.sexo ="Indeterminado"
+										break;
+									default:
+										break;
+								}
 							}
 						},
 						error: function () {
@@ -698,7 +728,7 @@ $(document).ready(() => {
 
 				console.log(data);
 				
-				
+				/*
 				$.ajax({
 					url: urls[this.env].enviarInfoAutogestion,
 					contentType: 'application/json',
@@ -715,6 +745,7 @@ $(document).ready(() => {
 						console.log('error');
 					}
 				});
+				*/
 			
 			},
 			sendDataPoliza() {
