@@ -205,7 +205,7 @@
 						<p>Administradora de Planes de beneficios</p>
 					</div>
 					<div class="column">
-						<select height="10px"  width="50px" name="select" v-model="telemonitoreo.eps.codigo">
+						<select height="10px"  style =width:100% name="select" v-model="telemonitoreo.eps.codigo">
 							<option v-for=" item in telemonitoreo.maestras[3].values" :value="item.name" selected>{{item.name}}</option>					
 						</select>
 					</div>
@@ -339,7 +339,7 @@
 			<ul class="list-default list-info-patient">
 				<li class="">
 					<div class="info">
-						<span class="bold">Tipo de régimen en salud</span> <br></br>
+						<span class="bold">Tipo de régimen en salud</span></span><span class="required">*</span> <br></br>
 						<input type="radio" id="con"  value="36161_C. Contributivo" v-model="regimen">
 						<label for="contributivo">Contributivo</label>
 						<br>
@@ -349,7 +349,7 @@
 				</li>
 				<li class="">
 					<div class="info">
-						<span class="bold">Estás en embarazo?</span> <br></br>
+						<span class="bold">Estás en embarazo?</span></span><span class="required">*</span> <br></br>
 						<input type="radio" id="emb_si"  value="emb_si"  v-model="embarazo">
 						<label for="emb_si">Si</label>
 						<br>
@@ -359,7 +359,7 @@
 				</li>
 				<li class="">
 					<div class="info">
-						<span class="bold">Estás en quimioterapia?</span> <br></br>
+						<span class="bold">Estás en quimioterapia?</span></span><span class="required">*</span> <br></br>
 						<input type="radio" id="qui_si"  value="qui_si" v-model="quimioterapia">
 						<label for="qui_si">Si</label>
 						<br>
@@ -369,7 +369,7 @@
 				</li>
 				<li class="">
 					<div class="info">
-						<span class="bold">Usas inmunosupresores?</span> <br></br>
+						<span class="bold">Usas inmunosupresores?</span></span><span class="required">*</span> <br></br>
 						<input type="radio" id="inm_si"  value="inm_si" v-model="inmunosupresores">
 						<label for="inm_si">Si</label>
 						<br>
@@ -471,7 +471,7 @@
 				<li class="">
 					<em class="fas fa-virus"></em>
 						<div class="info">
-							<span  class="span">vacunado</span>
+							<span  class="span">vacunado</span><span class="required">*</span>
 							<select name="select" style =width:100% v-model="vacunado">
 								<option v-for=" item in telemonitoreo.maestras[1].values" :value="item.code" selected>{{item.name}}</option>					
 							</select>
@@ -587,7 +587,7 @@
 			<ul class="list-default list-info-patient">
 				<li class="">
 					<div class="info">
-						<span class="bold">¿Uso antibiótico en la última semana?</span><br><br><br>
+						<span class="bold">¿Uso antibiótico en la última semana?</span></span><span class="required">*</span><br><br><br>
 						<input type="radio"  id="antibioticosi" class="radiobtn" value="7875_Si" v-model="uso_antibioticos" >
 						<label for="antibioticosi">Si</label>
 						<br>
@@ -597,7 +597,7 @@
 				</li>
 				<li class="">
 					<div class="info">
-						<span class="bold">¿Usó antivirales la última semana?</span><br><br><br>
+						<span class="bold">¿Usó antivirales la última semana?</span></span><span class="required">*</span><br><br><br>
 						<input type="radio"  id="antiviralessi" class="radiobtn" value="7875_Si" v-model="uso_antivirales">
 						<label for="antiviralessi">Si</label>
 						<br>
@@ -607,7 +607,7 @@
 				</li>
 				<li class="">
 					<div class="info">
-						<span class="bold">¿Ha fumado en los últimos 6 meses?</span><br><br><br>
+						<span class="bold">¿Ha fumado en los últimos 6 meses?</span></span><span class="required">*</span><br><br><br>
 						<input type="radio"  id="fumasi" value="7875_Si" class="radiobtn" v-model="ha_fumado">
 						<label for="fumasi">Si</label>
 						<br>
@@ -617,7 +617,7 @@
 				</li>
 				<li class="">
 					<div class="info">
-						<span class="bold">Autoriza Recibir por los canales virtuales las encuestas para el seguimiento COVID?</span><br>
+						<span class="bold">Autoriza Recibir por los canales virtuales las encuestas para el seguimiento COVID?</span></span><span class="required">*</span><br>
 						<input type="radio" id="si_canales" value="7875_Si" class="radiobtn" v-model="canales" checked="checked">
 						<label for="si_canales">Si</label>
 						<br>
@@ -683,7 +683,8 @@
 		v-if="Object.keys(user).length !== 0 && canales == '7875_No' && telemonitoreo.verificar_autogestion.active == false && telemonitoreo.tipo_usuario =='POS'">
 			<div class="text-message">
 				<br>
-					<p>Por favor ingrese su correo electrónico</p>
+					<p>Por favor ingrese su correo electrónico es obligatorio<span class="required">*</span></p>
+					
 				<br>
 				<div>
 					<input
@@ -691,7 +692,7 @@
 						v-model="correo_electronico"
 						type="email"
 						name="email"
-						>
+					>
 				</div>
 			</div>
 		</div>
@@ -798,8 +799,9 @@
 								</li>
 								<li class="">
 									<div class="info">
-										<Label>Validar correo</Label>
+										<Label>Validar correo<span class="required">*</span></Label>
 										<input type="text"  id="correo" style =width:100% name="correo" v-model="correo_electronico" >
+										
 									</div>
 								</li>
 							</ul> 
@@ -1084,9 +1086,10 @@
 								<div class="column">
 									<p>Teléfono</p>
 								</div>
-								<div class="column">
+								<div class="column" id="watch-example">
 									<p>
-										<input v-validate="'decimal:10'" name="decimal_field" type="number" v-model.lazy="telefono1">
+										<input v-model="telefono1" name="decimal_field" type="text">
+										<span class="required" v-if="telemonitoreo.msg[0].telefono1">{{telemonitoreo.msg[0].telefono1}}</span>
 									</p>
 								</div>
 							</div>
@@ -1097,7 +1100,8 @@
 								</div>
 								<div class="column">
 									<p>
-										<input v-validate="'decimal:10'" name="decimal_field" type="number" v-model.lazy="telefono2">
+										<input name="decimal_field" type="text" v-model="telefono2">
+										<span class="required" v-if="telemonitoreo.msg[0].telefono2">{{telemonitoreo.msg[0].telefono2}}</span>
 									</p>
 									
 								</div>
@@ -1125,11 +1129,10 @@
 								</div>
 							</div>
 						</ul>
-						
 						</div>
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn c-1" data-dismiss="modal">Guardar</button>
+						<button type="button" @click="checkFormTelefonos()" class="btn c-1" data-dismiss="modal" :disabled="disabled == 1">Guardar</button>
 					</div>
 				</div>
 			</div>
@@ -1196,7 +1199,8 @@
 								</div>
 								<div class="column">
 									<p>
-										<input v-validate="'numeric'" data-vv-as="field" name="numeric_field" type="number" maxlength="10" oninput="if(this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength)" v-model.lazy="datos_poliza.telefono">
+										<input name="decimal_field" type="text" v-model="telefono1">
+										<span class="required" v-if="telemonitoreo.msg[0].telefono1">{{telemonitoreo.msg[0].telefono1}}</span>
 									</p>
 								</div>
 							</div>
@@ -1207,7 +1211,8 @@
 								</div>
 								<div class="column">
 									<p>
-										<input v-validate="'numeric'" data-vv-as="field" name="numeric_field" type="number" maxlength="10" oninput="if(this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength)" v-model.lazy="datos_poliza.celular">
+										<input name="decimal_field" type="text" v-model="telefono2">
+										<span class="required" v-if="telemonitoreo.msg[0].telefono2">{{telemonitoreo.msg[0].telefono2}}</span>
 									</p>
 									
 								</div>
@@ -1235,10 +1240,17 @@
 								</div>
 							</div>
 						</ul>
+						
 						</div>
+						<p v-if="telemonitoreo.error.length">
+							<b  class='bold'>verifique los campos</b>
+							<ul>
+							<li v-for="error in telemonitoreo.error ">{{ error }}</li>
+							</ul>
+						</p>
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn c-1" data-dismiss="modal">Guardar</button>
+						<button type="button" @click="checkFormTelefonos()" class="btn c-1" data-dismiss="modal">Guardar</button>
 					</div>
 				</div>
 			</div>

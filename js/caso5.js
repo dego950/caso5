@@ -86,13 +86,13 @@ $(document).ready(() => {
 			result_send_data: {},
 			activar: true,
 			pos_activo: false,
-			fechahoy:"",
+			fechahoy: "",
 			eps: {
 				titulo: '',
 				codigo: '',
 			},
-			ciudaDepartamento:{
-				cod:"",
+			ciudaDepartamento: {
+				cod: "",
 				nombre: "",
 			},
 			formulario: {},
@@ -100,6 +100,13 @@ $(document).ready(() => {
 			formulario_mensaje: "Formulario completo",
 			modal: null,
 			errors: [],
+			error: [],
+			msg: [{
+				telefono1: "",
+				telefono2: "",
+				disabled: 0
+			}],
+			disabled:0,
 			errores_validacion: [],
 			telefono1: "",
 			telefono2: "",
@@ -121,7 +128,23 @@ $(document).ready(() => {
 		},
 		updated() {
 		},
+		watch: {
+			telefono1(value) {
+				console.log('entro a watch', value)
+				this.telefono1 = value;
+				this.validTelefonos(value);
+
+			},
+			telefono2(value) {
+				console.log('entro 2', value)
+				this.telefono2 = value;
+				this.validTelefonos(value);
+
+			}
+
+		},
 		methods: {
+
 
 			checkForm() {
 
@@ -187,9 +210,39 @@ $(document).ready(() => {
 				}
 				$('#modalInfo').modal();
 			},
+			checkFormTelefonos() {
+				telemonitoreo.error = [];
+				if (!telemonitoreo.validTelefonos(telemonitoreo.telefono1)) {
+					this.error.push('verifique el numero de telefono1');
+				}
+			},
 			validEmail(email) {
 				var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 				return re.test(email);
+			},
+			validTelefonos(tel) {
+				console.log('tel', tel)
+				var reg = /^\d+$/;
+				if (!reg.test(tel)) {				
+					this.msg[0].telefono1 = "El valor ingresado debe ser numérico";
+					this.disabled=1; 
+					return false;
+				} else {
+					this.msg[0].telefono1 = "";
+					this.disabled=0; 
+				}
+			},
+			validTelefonosCelular(tel) {
+				console.log('tel', tel)
+				var reg = /^\d+$/;
+				if (!reg.test(tel)) {				
+					this.msg[0].telefono2 = "El valor ingresado debe ser numérico";
+					this.disabled=1; 
+					return false;
+				} else {
+					this.msg[0].telefono2 = ""
+					this.disabled=0;
+				}
 			},
 			editarData() {
 				$('#modalEdit').modal();
@@ -238,8 +291,9 @@ $(document).ready(() => {
 							'tipoid': tipodocumento,
 						},
 						success(result) {
+							console.log(result);
 							telemonitoreo.verificar_autogestion = JSON.parse(result);
-							console.log(telemonitoreo.verificar_autogestion);
+							
 						},
 						error: function () {
 							console.log('error');
@@ -291,7 +345,7 @@ $(document).ready(() => {
 							if (result) {
 								telemonitoreo.infoVacuna = JSON.parse(result);
 								console.log(telemonitoreo.infoVacuna);
-								telemonitoreo.vacunado = "7875_Si"
+								telemonitoreo.vacunado = "7875_No"
 								telemonitoreo.vacuna_dosis = telemonitoreo.infoVacuna[0].biologicoVacuna.numeroDosis;
 								var dia = telemonitoreo.infoVacuna[0].biologicoVacuna.dosisVacuna[0].fechaAplicacion.dayOfMonth;
 								var mes = telemonitoreo.infoVacuna[0].biologicoVacuna.dosisVacuna[0].fechaAplicacion.month;
@@ -301,7 +355,7 @@ $(document).ready(() => {
 								telemonitoreo.vacuna_nombre.nombre = telemonitoreo.infoVacuna[0].biologicoVacuna.nombreCorto;
 								telemonitoreo.codigoIpsa = telemonitoreo.infoVacuna[0].biologicoVacuna.codigo
 
-								var codigo = maestras[0].values.filter(x => {							
+								var codigo = maestras[0].values.filter(x => {
 									if (x.codIpsa === telemonitoreo.codigoIpsa &&
 										x.dosisipsa === telemonitoreo.infoVacuna[0].biologicoVacuna.numeroDosis) {
 										return x
@@ -543,15 +597,15 @@ $(document).ready(() => {
 								telemonitoreo.datosPersonales = msgdata;
 								telemonitoreo.tipo_usuario = "POS"
 								console.log('Datos Pos' + telemonitoreo.datosPersonales)
-								telemonitoreo.telefono1 = (telemonitoreo.datosPersonales.Envelope.Body.consultarAfiliadoExtendidoResponse.afiliadoConsultaExtendido.telefono).toString();
-								telemonitoreo.telefono2 = (telemonitoreo.datosPersonales.Envelope.Body.consultarAfiliadoExtendidoResponse.afiliadoConsultaExtendido.ubicacion.telefono).toString();
+								//telemonitoreo.telefono1 = (telemonitoreo.datosPersonales.Envelope.Body.consultarAfiliadoExtendidoResponse.afiliadoConsultaExtendido.telefono).toString();
+								//telemonitoreo.telefono2 = (telemonitoreo.datosPersonales.Envelope.Body.consultarAfiliadoExtendidoResponse.afiliadoConsultaExtendido.ubicacion.telefono).toString();
 								telemonitoreo.fecha_nacimiento = moment(telemonitoreo.datosPersonales.Envelope.Body.consultarAfiliadoExtendidoResponse.afiliadoConsultaExtendido.fechaNacimiento).format("DD-MM-YYYY");
 								telemonitoreo.edad = telemonitoreo.calcularEdad(telemonitoreo.fecha_nacimiento, true).toString();
 								telemonitoreo.pos_activo = telemonitoreo.datosPersonales.Envelope.Body.consultarAfiliadoExtendidoResponse.afiliadoConsultaExtendido.tienePOS;
-								telemonitoreo.correo_electronico = telemonitoreo.datosPersonales.Envelope.Body.consultarAfiliadoExtendidoResponse.afiliadoConsultaExtendido.ubicacion.direccionElectronica;
+								//telemonitoreo.correo_electronico = telemonitoreo.datosPersonales.Envelope.Body.consultarAfiliadoExtendidoResponse.afiliadoConsultaExtendido.ubicacion.direccionElectronica;
 								var date = new Date();
 								telemonitoreo.fecha_hoy = moment(date).format("DD-MM-YYYY HH:mm:ss");
-								console.log('fecha hoy'+ telemonitoreo.fecha_hoy);
+								console.log('fecha hoy' + telemonitoreo.fecha_hoy);
 								if (telemonitoreo.pos_activo == true) {
 									telemonitoreo.eps.titulo = '36077_SURA E.P.S';
 									telemonitoreo.eps.codigo = 'EMP021'
@@ -579,9 +633,9 @@ $(document).ready(() => {
 								})
 								var codCiudad = ciudad[0].concept_id;
 								var nomCiudad = ciudad[0].name;
-								telemonitoreo.ciudaDepartamento.cod = codCiudad+'_'+nomCiudad;
+								telemonitoreo.ciudaDepartamento.cod = codCiudad + '_' + nomCiudad;
 								telemonitoreo.ciudaDepartamento.nombre = ciudad[0].name;
-								
+
 
 							}
 						},
@@ -757,19 +811,19 @@ $(document).ready(() => {
 					url: urls[this.env].enviarInfoAutogestion,
 					contentType: 'application/json',
 					type: 'POST',
-					data:  JSON.stringify(data),
-					
-					success (result) {
+					data: JSON.stringify(data),
+
+					success(result) {
 						console.log(result);
 						telemonitoreo.result_send_data = result;
 						$('#modalNotifi').modal();
-						
+
 					},
 					error: function () {
 						console.log('error');
 					}
 				});
-				
+
 
 			},
 			sendDataPoliza() {

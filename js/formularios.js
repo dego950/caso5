@@ -9,6 +9,9 @@ var formularios = [
 				texto: "Sura informa que usted no tiene permisos para acceder a esta pagina. Si requieres atención por covid te invitamos a ingresar nuevamente por alguno de nuestros canales virtuales"
 			},
 			{
+				texto: "Sura informa que usted no tiene permisos para acceder a esta pagina. ya se ha contestado la encuesta"
+			},
+			{
 				texto: "Mensaje aquí..."
 			}
 		]
