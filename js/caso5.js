@@ -106,7 +106,7 @@ $(document).ready(() => {
 				telefono2: "",
 				disabled: 0
 			}],
-			disabled:0,
+			disabled: 0,
 			errores_validacion: [],
 			telefono1: "",
 			telefono2: "",
@@ -130,15 +130,13 @@ $(document).ready(() => {
 		},
 		watch: {
 			telefono1(value) {
-				console.log('entro a watch', value)
 				this.telefono1 = value;
 				this.validTelefonos(value);
 
 			},
 			telefono2(value) {
-				console.log('entro 2', value)
 				this.telefono2 = value;
-				this.validTelefonos(value);
+				this.validTelefonosCelular(value);
 
 			}
 
@@ -221,27 +219,27 @@ $(document).ready(() => {
 				return re.test(email);
 			},
 			validTelefonos(tel) {
-				console.log('tel', tel)
 				var reg = /^\d+$/;
-				if (!reg.test(tel)) {				
+				if (!reg.test(tel) && tel) {
 					this.msg[0].telefono1 = "El valor ingresado debe ser numérico";
-					this.disabled=1; 
+					this.disabled = 1;
 					return false;
-				} else {
+				}
+				else {
 					this.msg[0].telefono1 = "";
-					this.disabled=0; 
+					this.disabled = 0;
 				}
 			},
 			validTelefonosCelular(tel) {
-				console.log('tel', tel)
+
 				var reg = /^\d+$/;
-				if (!reg.test(tel)) {				
+				if (!reg.test(tel) && tel) {
 					this.msg[0].telefono2 = "El valor ingresado debe ser numérico";
-					this.disabled=1; 
+					this.disabled = 1;
 					return false;
 				} else {
 					this.msg[0].telefono2 = ""
-					this.disabled=0;
+					this.disabled = 0;
 				}
 			},
 			editarData() {
@@ -293,7 +291,7 @@ $(document).ready(() => {
 						success(result) {
 							console.log(result);
 							telemonitoreo.verificar_autogestion = JSON.parse(result);
-							
+
 						},
 						error: function () {
 							console.log('error');
